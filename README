@@ -1,0 +1,37 @@
+A Sample Android App with the Google Maps API v2
+
+To make this project work
+
+1. Get your own API Key and replace it with the one in the manifest file
+2. Import the library project from Google in the SDK samples of your sdk directory.
+The project can be found in the below location.
+
+..\android-sdks\extras\google\google_play_services\libproject
+
+3. Once you import this library project, include this project as an Android
+library dependency for your application project.
+
+What this application does?
+
+1. On opening the application, you would see a splash screen, and it would try to get
+your current location.
+2. Once it gets your location, it would switch to the map view, and display your 
+current location with a marker.
+3. Tapping on an unmarked area of the app, you would see a dialog, through which you 
+can add a new place.
+4. After saving the new place by providing a name and a description, this place would
+be saved into the database and you would be able to see the newly added place on the
+map.
+5. Tapping on an already visible marker will show you the details of that place.
+6. The next time you open the application, all the previously stored places would appear
+on the map along with your current location.
+
+Suggested optimisations
+
+1. While loading the points from the database, it would be nice if we can only load the 
+places which are within the currently visible area of your app.
+2. When the map is resized or moved, we could requery the database for the fresh list of
+places and update the markers based on the new visible area.
+
+Problems:
+The VisibleRegion API, currently, doesn't work. Need to think of a workaround for this.
