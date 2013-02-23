@@ -80,4 +80,42 @@ public class DBHelper {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         }
     }
+
+    public MapLocation getLocationByName(String title) {
+        MapLocation location = null;
+        String selection = IDBValues.COL_NAME + " = ?";
+        String[] selectionArgs = {
+            title
+        };
+        Cursor cursor = sqlDB.query(IDBValues.TABLE_LOCATIONS, null, selection, selectionArgs,
+                null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            location = new MapLocation();
+            location.set_id(cursor.getLong(cursor.getColumnIndex(IDBValues.COL_ID)));
+            location.setLatitude(Double.parseDouble(cursor.getString(cursor
+                    .getColumnIndex(IDBValues.COL_LAT))));
+            location.setLongitude(Double.parseDouble(cursor.getString(cursor
+                    .getColumnIndex(IDBValues.COL_LONG))));
+            location.setName(cursor.getString(cursor.getColumnIndex(IDBValues.COL_NAME)));
+            location.setDescription(cursor.getString(cursor
+                    .getColumnIndex(IDBValues.COL_DESCRIPTION)));
+        }
+        cursor.close();
+        return location;
+    }
+
+    public boolean doesNameExist(String name) {
+        boolean exists = false;
+        String selection = IDBValues.COL_NAME + " = ?";
+        String[] selectionArgs = {
+            name
+        };
+        Cursor cursor = sqlDB.query(IDBValues.TABLE_LOCATIONS, null, selection, selectionArgs,
+                null, null, null);
+        if (cursor.getCount() > 0) {
+            exists = true;
+        }
+        return exists;
+    }
 }

@@ -10,5 +10,7 @@
     <string name="label_description">Description</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_save">Save</string>
-
+    <string name="label_place_info">Place information</string>
+    <string name="label_add_name_desc">Name and description is mandatory</string>
+	<string name="label_title_already_exists">A place with a similar name already exists</string>
 </resources>

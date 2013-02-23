@@ -12,13 +12,15 @@ import android.util.Log;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
 
-public class LocationActivity extends Activity implements OnMapClickListener {
+public class LocationActivity extends Activity implements OnMapClickListener, OnMarkerClickListener {
     private MapFragment mapFragment;
 
     private CameraPosition cameraPosition;
@@ -48,6 +50,8 @@ public class LocationActivity extends Activity implements OnMapClickListener {
 
         addMyLocationMarker();
         addSavedLocations();
+
+        mapFragment.getMap().setOnMarkerClickListener(this);
     }
 
     private void addMyLocationMarker() {
@@ -62,7 +66,7 @@ public class LocationActivity extends Activity implements OnMapClickListener {
     public void onMapClick(LatLng latLong) {
         Log.i(getClass().getName(), "Tapped: " + latLong.latitude + "," + latLong.longitude);
 
-        DialogAddPlace dialogAddPlace = new DialogAddPlace(this);
+        DialogAddPlace dialogAddPlace = new DialogAddPlace(this, true);
         dialogAddPlace.setLatLng(latLong);
         dialogAddPlace.setOnDismissListener(new OnDismissListener() {
 
@@ -95,6 +99,23 @@ public class LocationActivity extends Activity implements OnMapClickListener {
             placeMarker.position(latLng);
             mapFragment.getMap().addMarker(placeMarker);
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        boolean value = false;
+        Log.i(getClass().getName(), marker.getTitle());
+        DBHelper helper = new DBHelper(getApplicationContext());
+        helper.open();
+        MapLocation location = helper.getLocationByName(marker.getTitle());
+        helper.close();
+        if (location != null) {
+            value = true;
+            DialogAddPlace addPlaceDialog = new DialogAddPlace(this, false);
+            addPlaceDialog.displayLocationInfo(location);
+            addPlaceDialog.show();
+        }
+        return value;
     }
 
 }

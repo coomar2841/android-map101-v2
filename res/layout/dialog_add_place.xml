@@ -34,6 +34,14 @@
         android:gravity="top"
         android:lines="5" />
 
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center_horizontal"
+        android:text="Location" />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
