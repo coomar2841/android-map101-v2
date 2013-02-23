@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Map101</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="label_loading">Getting current location. Please wait...</string>
+    <string name="label_add_place">Add a new place</string>
+    <string name="label_name">Name</string>
+    <string name="label_description">Description</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_save">Save</string>
+
+</resources>
